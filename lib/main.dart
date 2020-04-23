@@ -11,8 +11,20 @@ class XylophoneApp extends StatefulWidget {
 class _XylophoneAppState extends State<XylophoneApp> {
   static AudioCache player = AudioCache();
 
-  playSound(String url) {
-    player.play(url);
+  void playSound(int sound) {
+    player.play('note$sound.wav');
+  }
+
+  Expanded createSoundButton({int soundNumber, Color color}) {
+    return Expanded(
+      flex: 1,
+      child: FlatButton(
+        color: color,
+        onPressed: () {
+          playSound(soundNumber);
+        },
+      ),
+    );
   }
 
   @override
@@ -21,15 +33,17 @@ class _XylophoneAppState extends State<XylophoneApp> {
       home: Scaffold(
         body: SafeArea(
           child: Center(
-            child: IconButton(
-              icon: Icon(
-                Icons.volume_up,
-                color: Colors.pink,
-              ),
-              tooltip: 'Increase volume by 10',
-              onPressed: () {
-                playSound('note1.wav');
-              },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                createSoundButton(soundNumber: 1, color: Colors.red),
+                createSoundButton(soundNumber: 2, color: Colors.orange),
+                createSoundButton(soundNumber: 3, color: Colors.yellow),
+                createSoundButton(soundNumber: 4, color: Colors.green),
+                createSoundButton(soundNumber: 5, color: Colors.teal),
+                createSoundButton(soundNumber: 6, color: Colors.blue),
+                createSoundButton(soundNumber: 7, color: Colors.purple),
+              ],
             ),
           ),
         ),
